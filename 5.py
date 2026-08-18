@@ -1,25 +1,23 @@
-def ejecutar_mision(nombre_tarea, al_exito=None, al_error=None):
-    try:
-        resultado = "Tarea completada correctamente"
+def procesar_coleccion(lista_datos, funcion_transformacion, funcion_filtro):
+    resultado = []
 
-        if al_exito:
-            al_exito(nombre_tarea, resultado)
+    for dato in lista_datos:
+        if funcion_filtro(dato):
+            resultado.append(funcion_transformacion(dato))
 
-    except Exception as error:
-        if al_error:
-            al_error(nombre_tarea, str(error))
+    return resultado
 
 
-def mostrar_exito(nombre_tarea, resultado):
-    print(f"Éxito: {nombre_tarea} - {resultado}")
+es_par = lambda numero: numero % 2 == 0
+duplicar = lambda numero: numero * 2
 
 
-def mostrar_error(nombre_tarea, mensaje_error):
-    print(f"Error: {nombre_tarea} - {mensaje_error}")
+numeros = [1, 2, 3, 4, 5, 6]
 
-
-ejecutar_mision(
-    "Procesar datos",
-    al_exito=mostrar_exito,
-    al_error=mostrar_error
+resultado = procesar_coleccion(
+    numeros,
+    duplicar,
+    es_par
 )
+
+print(resultado)
